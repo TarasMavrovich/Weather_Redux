@@ -1,0 +1,39 @@
+.container {
+  position: relative;
+}
+
+.container button {
+  border: none;
+  outline: none;
+  width: 0;
+  height: 0;
+}
+
+.container button:hover {
+  cursor: pointer;
+}
+
+.search {
+  background-color: rgba(177, 177, 177, 0.151);
+  border: 1px solid rgba(177, 177, 177, 0.151);
+  outline: none;
+  padding: 10px;
+  padding-left: 25px;
+  border-radius: 5px;
+}
+
+.search:hover {
+  cursor: pointer;
+}
+
+.search:focus {
+  cursor: auto;
+}
+
+.icon {
+  position: absolute;
+  top: 11px;
+  left: 20px;
+  width: 15px;
+  height: 15px;
+}
