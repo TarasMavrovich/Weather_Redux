@@ -1,12 +1,12 @@
 import style from "./style.module.css";
-const TripItem = ({ tripData, onSelectTrip }) => {
-  if (!tripData) {
+const TripItem = ({ trip, onSelectTrip }) => {
+  if (!trip) {
     return null;
   }
-  const { destination, startDate, endDate } = tripData;
+  const { destination, startDate, endDate } = trip;
 
   const handleSelect = () => {
-    onSelectTrip(tripData);
+    onSelectTrip(trip);
   };
 
   return (

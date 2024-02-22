@@ -12,8 +12,10 @@ async function checkWeather(city, firstDate, lastDate) {
   return data;
 }
 
-async function checkOneDayWeather(city, day) {
-  const response = await fetch(api.base + city + `/today?key=${api.key}`);
+async function checkOneDayWeather(city) {
+  const response = await fetch(
+    `${api.base}/${city}/today?unitGroup=metric&include=days&key=${api.key}&contentType=json`
+  );
   const data = await response.json();
 
   return data;

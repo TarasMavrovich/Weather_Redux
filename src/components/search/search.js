@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import style from "./style.module.css";
 import searchIcon from "../assets/magnifying-glass-solid.svg";
+import { useDispatch } from "react-redux";
+import { setSelectedSearchTrip } from "../../reducers/tripSlice";
 
-const Search = ({ onSearchTrip }) => {
+const Search = () => {
   const [search, setSearch] = useState("");
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    onSearchTrip(search);
-  }, [search, onSearchTrip]);
+    dispatch(setSelectedSearchTrip(search));
+
+    // onSearchTrip(filteredTrips);
+  }, [search, dispatch]);
 
   const handleSearchClick = (e) => {
     setSearch(e.target.value);
