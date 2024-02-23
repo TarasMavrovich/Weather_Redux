@@ -1,5 +1,5 @@
 const api = {
-  key: "6WKC728948SAETVDAPGSVNYMS",
+  key: process.env.REACT_APP_API,
   base: "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline",
 };
 

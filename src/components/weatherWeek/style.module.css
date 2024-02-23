@@ -11,11 +11,19 @@
 }
 
 .item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 85px;
   height: 125px;
-  background: red;
 
   margin-left: 10px;
+}
+
+.item img {
+  height: 50px;
+  padding-bottom: 5px;
 }
 
 .horizontalScroll {

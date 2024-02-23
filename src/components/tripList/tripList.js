@@ -17,11 +17,9 @@ const TripList = () => {
   const search = useSelector(selectSelectedSearchTrip) || "";
   const selectedTrip = useSelector(selectSelectedTrip);
   const selectedTripForecast = useSelector(selectForecast);
-  debugger;
 
   const handleSelectTrip = (trip) => {
     dispatch(setSelectedTrip(trip));
-    debugger;
   };
 
   const filteredTrips = trips.filter((trip) =>
@@ -64,7 +62,7 @@ const TripList = () => {
           </div>
         )}
       </div>
-      {/* {selectedTrip && <WeatherForecast forecast={selectedTripForecast} />} */}
+      {selectedTrip && <WeatherForecast forecast={selectedTripForecast} />}
     </div>
   );
 };

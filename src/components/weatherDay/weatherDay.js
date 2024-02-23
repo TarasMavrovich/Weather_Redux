@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./style.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { checkOneDayWeather } from "../api/api";
@@ -13,6 +13,13 @@ const WeatherDay = () => {
   const selectedTrip = useSelector(selectSelectedTrip);
   const selectedTripOneDay = useSelector(selectOndeDay);
 
+  const [countdown, setCountdown] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
   useEffect(() => {
     if (selectedTrip) {
       const fetchTripOneDay = async () => {
@@ -25,6 +32,34 @@ const WeatherDay = () => {
         }
       };
       fetchTripOneDay();
+
+      const calculateCountdown = () => {
+        const currentDate = new Date();
+        const startDate = new Date(selectedTrip.startDate);
+
+        const timeDifference = startDate - currentDate;
+
+        if (timeDifference > 0) {
+          const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+          const hours = Math.floor(
+            (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          );
+          const minutes = Math.floor(
+            (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+          );
+          const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+          setCountdown({ days, hours, minutes, seconds });
+        } else {
+          setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        }
+      };
+
+      const intervalId = setInterval(calculateCountdown, 1000);
+
+      return () => {
+        clearInterval(intervalId);
+      };
     }
   }, [dispatch, selectedTrip]);
 
@@ -52,19 +87,19 @@ const WeatherDay = () => {
       </div>
       <div className={style.list}>
         <ul>
-          <li>{datetime}</li>
+          <li>{countdown.days}</li>
           <li>DAYS</li>
         </ul>
         <ul>
-          <li>15</li>
+          <li>{countdown.hours}</li>
           <li>HOURS</li>
         </ul>
         <ul>
-          <li>30</li>
+          <li>{countdown.minutes}</li>
           <li>MINUTES</li>
         </ul>
         <ul>
-          <li>10</li>
+          <li>{countdown.seconds}</li>
           <li>SECONDS</li>
         </ul>
       </div>

@@ -21,8 +21,13 @@ h1 {
 .center_img {
   display: flex;
   align-items: center;
+  gap: 15px;
   font-size: 48px;
   padding-bottom: 10px;
+}
+
+.center_img img {
+  height: 45px;
 }
 
 .city {

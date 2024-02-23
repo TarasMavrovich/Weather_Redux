@@ -1,6 +1,14 @@
 import React, { useRef } from "react";
 import style from "./style.module.css";
 
+const formatDateTime = (datetime) => {
+  const dateObj = new Date(datetime);
+  const dayOfWeek = new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
+  }).format(dateObj);
+  return dayOfWeek;
+};
+
 const WeatherForecast = ({ forecast }) => {
   const horizontalScrollRef = useRef();
 
@@ -8,6 +16,10 @@ const WeatherForecast = ({ forecast }) => {
     event.preventDefault();
     horizontalScrollRef.current.scrollLeft += event.deltaY;
   };
+
+  if (!forecast || !forecast.days) {
+    return null;
+  }
 
   return (
     <div className={style.weather}>
@@ -21,7 +33,7 @@ const WeatherForecast = ({ forecast }) => {
           {forecast.days.map(
             ({ datetimeEpoch, datetime, icon, tempmax, tempmin }) => (
               <div key={datetimeEpoch} className={style.item}>
-                <p>{datetime}</p>
+                <p>{formatDateTime(datetime)}</p>
                 <img
                   alt={icon}
                   src={`https://raw.githubusercontent.com/visualcrossing/WeatherIcons/main/PNG/4th%20Set%20-%20Color/${icon}.png`}
