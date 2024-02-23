@@ -15,8 +15,8 @@ const Trips = () => {
   const dispatch = useDispatch();
   const selectedTrip = useSelector(selectSelectedTrip);
   const [modalVisible, setModalVisible] = useState(false);
-
-  console.log(selectedTrip);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (selectedTrip) {
@@ -27,6 +27,9 @@ const Trips = () => {
           dispatch(setSelectedTripForecast(forecast));
         } catch (error) {
           console.error("Error fetching trip forecast: ", error);
+          setError(error.message || "An error occurred while fetching data");
+        } finally {
+          setLoading(false);
         }
       };
       fetchTripForecast();
@@ -48,7 +51,9 @@ const Trips = () => {
   return (
     <div className={style.trips}>
       <div className={style.trip_list}>
-        <TripList />
+        {loading && <div>Loading...</div>}
+        {error && <div>Error: {error}</div>}
+        {!loading && !error && <TripList />}
         <Button handleShowModal={handleShowModal} />
         {modalVisible && (
           <CreateTripModal onAddTrip={handleAddTrip} onHide={handleHideModal} />

@@ -10,8 +10,6 @@ const Search = () => {
 
   useEffect(() => {
     dispatch(setSelectedSearchTrip(search));
-
-    // onSearchTrip(filteredTrips);
   }, [search, dispatch]);
 
   const handleSearchClick = (e) => {

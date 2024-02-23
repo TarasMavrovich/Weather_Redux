@@ -1,52 +1,12 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
-
-const trips =
-  localStorage.getItem("tripItems") !== null
-    ? JSON.parse(localStorage.getItem("tripItems"))
-    : [];
-
-const selectedTrip =
-  localStorage.getItem("selectedTrip") !== null
-    ? JSON.parse(localStorage.getItem("selectedTrip"))
-    : null;
-
-const selectedSearchTrip =
-  localStorage.getItem("selectedSearchTrip") !== null
-    ? JSON.parse(localStorage.getItem("selectedSearchTrip"))
-    : null;
-
-const selectedTripOneDay =
-  localStorage.getItem("selectedTripOneDay") !== null
-    ? JSON.parse(localStorage.getItem("selectedTripOneDay"))
-    : null;
-
-const selectedTripForecast =
-  localStorage.getItem("selectedTripForecast") !== null
-    ? JSON.parse(localStorage.getItem("selectedTripForecast"))
-    : null;
-
-const setItemFunc = (
-  trip,
-  selectedTrip,
-  selectedSearchTrip,
-  selectedTripOneDay,
-  selectedTripForecast
-) => {
-  localStorage.setItem("tripItems", JSON.stringify(trip));
-  localStorage.setItem("selectedTrip", JSON.stringify(selectedTrip));
-  localStorage.setItem(
-    "selectedSearchTrip",
-    JSON.stringify(selectedSearchTrip)
-  );
-  localStorage.setItem(
-    "selectedTripOneDay",
-    JSON.stringify(selectedTripOneDay)
-  );
-  localStorage.setItem(
-    "selectedTripForecast",
-    JSON.stringify(selectedTripForecast)
-  );
-};
+// import {
+//   trips,
+//   selectedTrip,
+//   selectedSearchTrip,
+//   selectedTripOneDay,
+//   selectedTripForecast,
+//   setItemFunc,
+// } from "../components/storage/localStorage";
 
 // const mockTrip = {
 //   id: Date.now(),
@@ -57,64 +17,65 @@ const setItemFunc = (
 
 export const tripSlice = createSlice({
   name: "trip",
+  // initialState: {
+  //   trips: trips,
+  //   selectedTrip: selectedTrip,
+  //   selectedSearchTrip: selectedSearchTrip,
+  //   selectedTripOneDay: selectedTripOneDay,
+  //   selectedTripForecast: selectedTripForecast,
+  // },
   initialState: {
-    trips: trips,
-    selectedTrip: selectedTrip,
-    selectedSearchTrip: selectedSearchTrip,
-    selectedTripOneDay: selectedTripOneDay,
-    selectedTripForecast: selectedTripForecast,
+    trips: [],
+    selectedTrip: null,
+    selectedSearchTrip: "",
+    selectedTripOneDay: null,
+    selectedTripForecast: null,
   },
   reducers: {
     addTrip: (state, action) => {
-      state.trips.push(action.payload);
-      setItemFunc(
-        state.trips,
-        state.selectedTrip,
-        state.selectedSearchTrip,
-        state.selectedTripOneDay,
-        state.selectedTripForecast
-      );
+      const serializedPayload = JSON.stringify(action.payload);
+      state.trips.push(serializedPayload);
     },
     setSelectedTrip: (state, action) => {
-      state.selectedTrip = action.payload;
-      setItemFunc(
-        state.trips,
-        state.selectedTrip,
-        state.selectedSearchTrip,
-        state.selectedTripOneDay,
-        state.selectedTripForecast
-      );
+      state.selectedTrip = JSON.parse(action.payload);
     },
     setSelectedSearchTrip: (state, action) => {
-      state.selectedSearchTrip = action.payload;
-      setItemFunc(
-        state.trips,
-        state.selectedTrip,
-        state.selectedSearchTrip,
-        state.selectedTripOneDay,
-        state.selectedTripForecast
-      );
+      state.selectedSearchTrip = JSON.parse(action.payload);
+      // setItemFunc(
+      //   state.trips,
+      //   state.selectedTrip,
+      //   state.selectedSearchTrip,
+      //   state.selectedTripOneDay,
+      //   state.selectedTripForecast
+      // );
     },
     setSelectedTripOndeDay: (state, action) => {
-      state.selectedTripOneDay = action.payload;
-      setItemFunc(
-        state.trips,
-        state.selectedTrip,
-        state.selectedSearchTrip,
-        state.selectedTripOneDay,
-        state.selectedTripForecast
-      );
+      state.selectedTripOneDay = JSON.parse(action.payload);
+      // setItemFunc(
+      //   state.trips,
+      //   state.selectedTrip,
+      //   state.selectedSearchTrip,
+      //   state.selectedTripOneDay,
+      //   state.selectedTripForecast
+      // );
     },
     setSelectedTripForecast: (state, action) => {
-      state.selectedTripForecast = action.payload;
-      setItemFunc(
-        state.trips,
-        state.selectedTrip,
-        state.selectedSearchTrip,
-        state.selectedTripOneDay,
-        state.selectedTripForecast
-      );
+      state.selectedTripForecast = JSON.parse(action.payload);
+      // setItemFunc(
+      //   state.trips,
+      //   state.selectedTrip,
+      //   state.selectedSearchTrip,
+      //   state.selectedTripOneDay,
+      //   state.selectedTripForecast
+      // );
     },
+  },
+  selectors: {
+    selectTripss: (state) => state.trips,
+    selectSelTripss: (state) => state.selectedTrip,
+    selectSearchTripss: (state) => state.selectedSearchTrip,
+    selectOneTripss: (state) => state.selectedTripOneDay,
+    selectWeekTripss: (state) => state.selectedTripForecast,
   },
 });
 
@@ -143,5 +104,13 @@ export const selectOndeDay = createSelector(
   [selectSelectedTripOneDay],
   (forecast) => forecast
 );
+
+export const {
+  selectTripss,
+  selectSelTripss,
+  selectSearchTripss,
+  selectOneTripss,
+  selectWeekTripss,
+} = tripSlice.selectors;
 
 export default tripSlice.reducer;

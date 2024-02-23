@@ -13,18 +13,16 @@ import WeatherForecast from "../weatherWeek/weatherWeek";
 
 const TripList = () => {
   const dispatch = useDispatch();
-  const trips = useSelector(selectTrips) || [];
+  const trips = useSelector(selectTrips);
   const search = useSelector(selectSelectedSearchTrip) || "";
   const selectedTrip = useSelector(selectSelectedTrip);
   const selectedTripForecast = useSelector(selectForecast);
-
-  console.log(setSelectedTrip);
+  debugger;
 
   const handleSelectTrip = (trip) => {
     dispatch(setSelectedTrip(trip));
+    debugger;
   };
-
-  console.log(trips);
 
   const filteredTrips = trips.filter((trip) =>
     trip.destination.toLowerCase().includes(search.toLowerCase())

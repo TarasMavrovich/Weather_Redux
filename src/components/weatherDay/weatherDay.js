@@ -18,9 +18,7 @@ const WeatherDay = () => {
       const fetchTripOneDay = async () => {
         try {
           const { destination } = selectedTrip;
-          console.log(destination);
           const forecast = await checkOneDayWeather(destination);
-          console.log(forecast);
           dispatch(setSelectedTripOndeDay(forecast));
         } catch (error) {
           console.error("Error fetching trip forecast: ", error);
